@@ -15,4 +15,4 @@ The second viewer, which is a simplified version of Mark Kellog's work, while wo
 The project is powered by AFrame and Three.js. Truck.splat file was taken from  Mark Kellog's repository.  
 
 ### **Demo**
-To see the application at work: [Demo application]()
+To see the application at work: <a href="https://gaussian-splatting1.glitch.me/">Web Viewer 2</a>
