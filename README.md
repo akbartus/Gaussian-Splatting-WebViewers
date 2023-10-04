@@ -14,4 +14,4 @@ While A-Frame component based example of Three.js viewer is capable of loading a
 The project is powered by AFrame and Three.js. Truck.splat file was taken from  Mark Kellog's repository.  
 
 ### **Demo**
-To see the application at work: <a href="https://gaussian-splatting1.glitch.me/">Web Viewer 2</a>
+To see the application at work: <a href="https://gaussian-splatting2.glitch.me/>"Web Viewer 1</a>, <a href="https://gaussian-splatting1.glitch.me/">Web Viewer 2</a>
