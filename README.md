@@ -12,7 +12,7 @@ This is an experimental project demonstrating various implementations of Gaussia
 To use the viewer locally copy either "gaussian_splatting_1" or "gaussian_splatting_2" folder to your local server. 
 
 ### **Tests**
-While A-Frame component based example of Three.js viewer is capable of loading any .splat file, the time for loading and speed are two issues, which still need to be resolved. Although, even in this state, the viewer works well. The second viewer, which is a simplified version of Mark Kellog's work, while works really smoothly and fast, it does not support any .splat file and needs additional preparing and editing. 
+While A-Frame component based example of Three.js viewer is capable of loading any .splat file, the time for loading and speed are two issues, which still need to be resolved. Although, even in this state, the viewer works well. The second viewer, which is a simplified version of Mark Kellog's work, while works really smoothly and fast, it does not support other .splat files and require additional preparing and editing of splat file. 
 
 ### **Tech Stack**
 The project is powered by AFrame and Three.js. Truck.splat file was taken from  Mark Kellog's repository.  
