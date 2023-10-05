@@ -13,12 +13,12 @@ To use the viewer locally copy either "gaussian_splatting_1" or "gaussian_splatt
 
 ### **Converting .ply to .splat**
 In order to convert .ply file, which is created after following 3D Gaussian Splatting for Real-Time Radiance Field Rendering tutorial, you can use the following tool, which is simplified and reduced version of  Kevin Kwok's <a href="https://github.com/antimatter15/splat">WebGL implementation of Gaussian Splatting</a> (MIT License, Copyright (c) 2023 Kevin Kwok).
-Open <a href="https://splat-converter.glitch.me/">this link</a> and drag your [name].ply file on window, and wait for it to do the conversion and download the file. This resulting file, then, can be used with these 2 web viewers. 
+Open <a href="https://splat-converter.glitch.me/">this link</a> and drag your [name].ply file on window, and wait for it to do the conversion and download the file. This resulting file, then, can be used with first web viewer.
 
 **Please note:** Kevin Kwok's work already contains this converter!
 
 ### **Tests**
-While A-Frame component based example of Three.js viewer is capable of loading any .splat file, the time for loading and speed are two issues, which still need to be resolved. Although, even in this state, the viewer works well. The second viewer, which is a simplified version of Mark Kellog's work, while works really smoothly and fast, it does not support other .splat files and require additional preparing and editing of splat file. 
+While A-Frame component based example of Three.js viewer is capable of loading any .splat file, the time for loading and speed are two issues, which still need to be resolved. Although, even in this state, the viewer works well. The second viewer, which is a simplified version of Mark Kellog's work, while works really smoothly and fast, it does not support other .splat files and require additional preparing and editing of splat file. **On the other hand, it does support .ply files generated!**
 
 ### **Tech Stack**
 The project is powered by AFrame and Three.js. Truck.splat file was taken from  Mark Kellog's repository.  
