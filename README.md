@@ -13,7 +13,7 @@ To use the viewer locally copy either "gaussian_splatting_1" or "gaussian_splatt
 
 ### **Converting .ply to .splat**
 In order to convert .ply file, which is created after following 3D Gaussian Splatting for Real-Time Radiance Field Rendering tutorial, you can use the following tool, which is simplified and reduced version of  Kevin Kwok's <a href="https://github.com/antimatter15/splat">WebGL implementation of Gaussian Splatting</a>(MIT License, Copyright (c) 2023 Kevin Kwok).
-Open this link and drag your [name].ply file on window, and wait for it to do the conversion. This resulting file, then, can be used with these 2 web viewers. 
+Open <a href="https://splat-converter.glitch.me/">this link</a> and drag your [name].ply file on window, and wait for it to do the conversion and download the file. This resulting file, then, can be used with these 2 web viewers. 
 
 **Please note:** Kevin Kwok's work already contains this converter!
 
