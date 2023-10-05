@@ -684,10 +684,12 @@ class Viewer {
 
         return function() {
             this.getRenderDimensions(renderDimensions);
+          if(this.splatMesh.material){
             this.splatMesh.material.uniforms.realProjectionMatrix.value.copy(this.realProjectionMatrix);
             this.splatMesh.material.uniforms.focal.value.set(this.cameraSpecs.fx, this.cameraSpecs.fy);
             this.splatMesh.material.uniforms.viewport.value.set(renderDimensions.x, renderDimensions.y);
             this.splatMesh.material.uniformsNeedUpdate = true;
+            }
         };
 
     }();
@@ -963,7 +965,7 @@ function init() {
     function load() {
         const viewer = new Viewer(null, [0, -1, -.17], [-5, -1, -1], [1, 1, 0]);
         viewer.init();
-        viewer.loadFile('https://cdn.glitch.me/7eb34fc5-dc2f-4b3b-afc1-8eb4a88210ba/truck.splat')
+        viewer.loadFile('truck.splat')
         .then(() => {
             viewer.start();
         });
