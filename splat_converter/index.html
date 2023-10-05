@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+	<title>WebGL Gaussian Splat Converter</title>
+	<meta charset="utf-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+	<style>
+		body {
+			overflow: hidden;
+			margin: 0;
+			height: 100vh;
+			width: 100vw;
+			font-family: sans-serif;
+			background: black;
+			text-shadow: 0 0 3px black;
+		}
+
+		a,
+		body {
+			color: white;
+		}
+		.scene,		
+		#progress {
+			position: absolute;
+			top: 0;
+			height: 5px;
+			background: blue;
+			z-index: 99;
+			transition: width 0.1s ease-in-out;
+		}
+
+		#quality {
+			position: absolute;
+			bottom: 10px;
+			z-index: 999;
+			right: 10px;
+		}
+
+		#canvas {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			touch-action: none;
+		}
+		#center-text {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-size: 24px;
+			color: white;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="progress"></div>
+	<div class="scene" id="spinner"></div>
+	<canvas id="canvas"></canvas>
+	<div id="center-text">Drag and drop your .ply file here to convert it</div>
+	<script src="main.min.js"></script>
+</body>
+
+</html>
