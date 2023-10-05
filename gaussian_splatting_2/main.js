@@ -684,7 +684,7 @@ class Viewer {
 
         return function() {
             this.getRenderDimensions(renderDimensions);
-          if(this.splatMesh.material){
+          if(this.splatMesh){
             this.splatMesh.material.uniforms.realProjectionMatrix.value.copy(this.realProjectionMatrix);
             this.splatMesh.material.uniforms.focal.value.set(this.cameraSpecs.fx, this.cameraSpecs.fy);
             this.splatMesh.material.uniforms.viewport.value.set(renderDimensions.x, renderDimensions.y);
