@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Gaussian Splatting: A-Frame Demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src='https://aframe.io/releases/1.4.2/aframe.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="gaussian-splatting.js"></script>
+</head>
+<body>
+   <a-scene>
+        <a-entity gaussian-splatting="splatUrl: https://cdn.glitch.me/7eb34fc5-dc2f-4b3b-afc1-8eb4a88210ba/truck.splat; initialPosition: -3 -2 -3"></a-entity>
+    </a-scene>
+</body>
+</html>
