@@ -25,5 +25,5 @@ The project is powered by AFrame and Three.js. Truck.splat file was taken from  
 
 ### **Demo**
 To see web viewers at work, visit the following pages: 
-* Web Viewer 1: <a href="https://gaussian-splatting2.glitch.me/">Three.js</a> and A-Frame.
+* Web Viewer 1: <a href="https://gaussian-splatting2.glitch.me/">Three.js</a>.
 * Web Viewer 2: <a href="https://gaussian-splatting1.glitch.me/">Three.js</a> and <a href="https://gaussiansplatting2-aframe.glitch.me/">A-Frame</a>. 
