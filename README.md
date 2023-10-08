@@ -12,7 +12,25 @@ All these repositories, originally, are based on Kevin Kwok's <a href="https://g
 
 ### **Instructions**
 To use a web viewer locally copy Three.js or A-Frame version of the web viewer to your local server. For using A-Frame component, copy the following code:
+```
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <title>Gaussian Splatting: A-Frame Demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src='https://aframe.io/releases/1.4.2/aframe.min.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="gaussian-splatting.js"></script>
+</head>
+<body>
+   <a-scene>
+        <a-entity gaussian-splatting="splatUrl: https://cdn.glitch.me/7eb34fc5-dc2f-4b3b-afc1-8eb4a88210ba/truck.splat; initialPosition: -3 -2 -3; downsampleFactor: 1; vertexCount: 1200000; splatPixelDiscard: 2.0; slider: true"></a-entity>
+    </a-scene>
+</body>
+</html>
+```
 
 ### **Converting .ply to .splat**
 In order to convert .ply file, which is created after following 3D Gaussian Splatting for Real-Time Radiance Field Rendering tutorial, you can use the following tool, which is simplified and reduced version of  Kevin Kwok's <a href="https://github.com/antimatter15/splat">WebGL implementation of Gaussian Splatting</a> (MIT License, Copyright (c) 2023 Kevin Kwok).
