@@ -35,9 +35,14 @@ To use a web viewer locally copy Three.js or A-Frame version of the web viewer t
 ### **Converting .ply to .splat**
 In order to convert .ply file, which is created after following 3D Gaussian Splatting for Real-Time Radiance Field Rendering tutorial, you can use the following tool, which is simplified and reduced version of  Kevin Kwok's <a href="https://github.com/antimatter15/splat">WebGL implementation of Gaussian Splatting</a> (MIT License, Copyright (c) 2023 Kevin Kwok).
 
-Open <a href="https://splat-converter.glitch.me/">this link</a> and drag your [name].ply file on window, and wait for it to do the conversion and download the file. This resulting file, then, can be used with first web viewer. In the next update will be adding the possibility of changing the size of a splat file.
+Open <a href="https://splat-converter.glitch.me/">this link</a> and drag your [name].ply file on window, and wait for it to do the conversion and download the file. This resulting file, then, can be used with first web viewer. 
 
 **Please note:** Kevin Kwok's work already contains this converter.
+
+  
+### **Updates**
+* The possibility of changing the size of a splat file in splat converter.
+* Making web viewer 1 work faster. 
 
 ### **Tech Stack**
 The project is powered by AFrame and Three.js. Truck.splat file was taken from  Mark Kellog's repository.  
