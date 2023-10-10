@@ -41,7 +41,7 @@ Open <a href="https://splat-converter.glitch.me/">this link</a>, select compress
 
   
 ### **Updates**
-* The possibility of changing the size of a splat file in splat converter.
+* <del>The possibility of changing the size of a splat file in splat converter.</del>
 * Making web viewer 1 work faster. 
 
 ### **Tech Stack**
