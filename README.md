@@ -35,7 +35,7 @@ To use a web viewer locally copy Three.js or A-Frame version of the web viewer t
 ### **Converting .ply to .splat**
 In order to convert .ply file, which is created after following 3D Gaussian Splatting for Real-Time Radiance Field Rendering tutorial, you can use the following tool, which is simplified and reduced version of  Kevin Kwok's <a href="https://github.com/antimatter15/splat">WebGL implementation of Gaussian Splatting</a> (MIT License, Copyright (c) 2023 Kevin Kwok).
 
-Open <a href="https://splat-converter.glitch.me/">this link</a> and drag your [name].ply file on window, and wait for it to do the conversion and download the file. This resulting file, then, can be used with first web viewer. 
+Open <a href="https://splat-converter.glitch.me/">this link</a>, select compression value (basically reducing the number of vertexes) from 1 (original) to 10 (max), confirm and then drag your [name].ply file on window, and wait for it to do the conversion and download the file. This resulting file, then, can be used with first web viewer. 
 
 **Please note:** Kevin Kwok's work already contains this converter.
 
