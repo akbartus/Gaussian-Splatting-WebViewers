@@ -1,7 +1,11 @@
 AFRAME.registerComponent("gaussian-splatting", {
   schema: {
-    splatUrl: { type: "string", default: "https://cdn.glitch.me/7eb34fc5-dc2f-4b3b-afc1-8eb4a88210ba/truck.splat" },
-    initialPosition: { type: "string", default: "-3 -2 -3" },
+    splatUrl: {
+      type: "string",
+      default:
+        "https://cdn.glitch.me/7eb34fc5-dc2f-4b3b-afc1-8eb4a88210ba/truck.splat",
+    },
+    initialPosition: { type: "string", default: "0 0 0" },
     downsampleFactor: { type: "int", default: 1 },
     vertexCount: { type: "int", default: 1200000 },
     splatPixelDiscard: { type: "float", default: 2.0 },
@@ -10,9 +14,9 @@ AFRAME.registerComponent("gaussian-splatting", {
   init: function () {
     let scene = this.el.sceneEl.object3D;
     let renderer = this.el.sceneEl.renderer;
-    let camera = this.el.sceneEl.camera;
+    let camera = document.querySelector("a-entity[camera]").object3D; ////this.el.sceneEl.camera; 
     this.viewer;
-    let controls;
+   
     let splatU = this.data.splatUrl;
     let initialPosition = this.data.initialPosition;
     let downsampleF = this.data.downsampleFactor;
@@ -657,7 +661,7 @@ AFRAME.registerComponent("gaussian-splatting", {
         initialCameraPos = [0, 0, 0],
         initialCameraLookAt = [0, 0, 0],
         cameraSpecs = DEFAULT_CAMERA_SPECS,
-        controls = null,
+
         selfDrivenMode = true
       ) {
         this.cameraUp = new THREE.Vector3().fromArray(cameraUp);
@@ -669,7 +673,7 @@ AFRAME.registerComponent("gaussian-splatting", {
         this.selfDrivenMode = selfDrivenMode;
         this.realProjectionMatrix = new THREE.Matrix4();
         this.splatBuffer = null;
-        this.controls = controls;
+
         this.splatMesh = null;
         this.sortWorker = null;
         this.resizeFunc = this.onResize.bind(this);
@@ -725,14 +729,7 @@ AFRAME.registerComponent("gaussian-splatting", {
 
         renderer.setSize(renderDimensions.x, renderDimensions.y);
 
-        if (!controls) {
-          controls = new THREE.OrbitControls(camera, renderer.domElement);
-          controls.maxPolarAngle = (0.9 * Math.PI) / 2;
-          controls.enableDamping = true;
-          controls.dampingFactor = 0.15;
-          console.log();
-          controls.target.copy(this.initialCameraLookAt);
-        }
+
 
         window.addEventListener("resize", this.resizeFunc, false);
 
@@ -786,6 +783,19 @@ AFRAME.registerComponent("gaussian-splatting", {
       })();
 
       loadFile(fileName) {
+        // Creating the div element
+        let loadingDiv = document.createElement("div");
+        loadingDiv.id = "loader";
+        loadingDiv.textContent = "Loading...";
+        loadingDiv.style.fontSize = "22px";
+        // Styling the div element
+        loadingDiv.style.position = "fixed";
+        loadingDiv.style.top = "50%";
+        loadingDiv.style.left = "50%";
+        loadingDiv.style.transform = "translate(-50%, -50%)";
+
+        // Appending the div element to the document body
+        document.body.appendChild(loadingDiv);
         const loadPromise = new Promise((resolve, reject) => {
           let fileLoadPromise;
           if (fileName.endsWith(".splat")) {
@@ -814,6 +824,7 @@ AFRAME.registerComponent("gaussian-splatting", {
           this.splatBuffer = splatBuffer;
           this.splatMesh = this.buildMesh(this.splatBuffer);
           this.splatMesh.frustumCulled = false;
+          document.querySelector("#loader").style.display = "none";
           scene.add(this.splatMesh);
           this.updateWorkerBuffer();
         });
@@ -921,7 +932,7 @@ AFRAME.registerComponent("gaussian-splatting", {
                                                position.x * v1 / viewport * 2.0 +
                                                position.y * v2 / viewport * 2.0;
         
-                    gl_Position = vec4(projectedCovariance, 0.0, 1.0);
+                    gl_Position = vec4(-projectedCovariance, 0.0, 1.0);
                 }`;
         const fragmentShaderSource = `
                     #include <common>
@@ -1018,7 +1029,7 @@ AFRAME.registerComponent("gaussian-splatting", {
 
     function init() {
       function load() {
-        viewer = new Viewer([0, -1, 0], [val.x, val.y, val.z], [0, 0, 0]);
+        viewer = new Viewer([0, 0, 0], [val.x, val.y, val.z], [0, 0, 0]);
         viewer.init();
         viewer.loadFile(splatU);
       }
