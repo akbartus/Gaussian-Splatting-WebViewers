@@ -32,14 +32,14 @@ To use a web viewer locally copy Three.js or A-Frame version of the web viewer t
 </html>
 ```
 A-Frame component has the following schemas, which could be changed:
-* splatUrl: { type: "string", default: "https://cdn.glitch.me/7eb34fc5-dc2f-4b3b-afc1-8eb4a88210ba/truck.splat" } - url/link to splat file. Accepts original .ply file generated or .splat file, which is converted and compressed (link to converter will be provided soon)
-* initialPosition: { type: "string", default: "0 0 0" } - initial position of camera.
-* downsampleFactor: { type: "int", default: 1 } - downsampling factor. 1 is original view. Value higher than 1 does downsampling. 
-* vertexCount: { type: "int", default: 1000000 } - the count of vertexes, which will be displayed on first load and used as max value in a slider.
-* splatSize: { type: "number", default: 1159.5880733038064 } - the value represents camera Fx and Fy. 
-* splatPixelDiscard: { type: "float", default: 2.0 } - value for discarding pixels. 
-* slider: { type: "boolean", default: true } - enable or disable sliders (vertexCount and splatSize).
-* splatColor: { type: "string", default: "grayscale" } - splat color scheme/paletter. Can be "color", "blackAndWhite", "grayscale", "green".
+* <b>splatUrl: { type: "string", default: "https://cdn.glitch.me/7eb34fc5-dc2f-4b3b-afc1-8eb4a88210ba/truck.splat" }</b> - url/link to splat file. Accepts original .ply file generated or .splat file, which is converted and compressed (link to converter will be provided soon)
+* <b>initialPosition: { type: "string", default: "0 0 0" }</b> - initial position of camera.
+* <b>downsampleFactor: { type: "int", default: 1 }</b> - downsampling factor. 1 is original view. Value higher than 1 does downsampling. 
+* <b>vertexCount: { type: "int", default: 1000000 }</b> - the count of vertexes, which will be displayed on first load and used as max value in a slider.
+* <b>splatSize: { type: "number", default: 1159.5880733038064 }</b> - the value represents camera Fx and Fy. 
+* <b>splatPixelDiscard: { type: "float", default: 2.0 }</b> - value for discarding pixels. 
+* <b>slider: { type: "boolean", default: true }</b> - enable or disable sliders (vertexCount and splatSize).
+* <b>splatColor: { type: "string", default: "grayscale" }</b> - splat color scheme/paletter. Can be "color", "blackAndWhite", "grayscale", "green".
 
 ### **Converting .ply to .splat and compression**
 In order to convert .ply file, which is created after following 3D Gaussian Splatting for Real-Time Radiance Field Rendering tutorial, you can use the following tool, which is simplified and reduced version of  Kevin Kwok's <a href="https://github.com/antimatter15/splat">WebGL implementation of Gaussian Splatting</a> (MIT License, Copyright (c) 2023 Kevin Kwok).
