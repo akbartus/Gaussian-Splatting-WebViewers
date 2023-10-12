@@ -36,7 +36,7 @@ A-Frame component has the following schemas, which could be changed:
 * <b>initialPosition: { type: "string", default: "0 0 0" }</b> - initial position of camera.
 * <b>downsampleFactor: { type: "int", default: 1 }</b> - downsampling factor. 1 is original view. Value higher than 1 does downsampling. 
 * <b>vertexCount: { type: "int", default: 1000000 }</b> - the count of vertexes, which will be displayed on first load and used as max value in a slider.
-* <b>splatSize: { type: "number", default: 1159.5880733038064 }</b> - the value represents camera Fx and Fy. 
+* <b>splatSize: { type: "number", default: 1159.5880733038064 }</b> - the value represents camera Fx and Fy and used as max value in a slider. 
 * <b>splatPixelDiscard: { type: "float", default: 2.0 }</b> - value for discarding pixels. 
 * <b>slider: { type: "boolean", default: true }</b> - enable or disable sliders (vertexCount and splatSize).
 * <b>splatColor: { type: "string", default: "grayscale" }</b> - splat color scheme/paletter. Can be "color", "blackAndWhite", "grayscale", "green".
