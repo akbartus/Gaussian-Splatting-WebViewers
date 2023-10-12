@@ -16,10 +16,12 @@
 			background: black;
 
 		}
+
 		a,
 		body {
 			color: white;
 		}
+
 		.scene,
 		#progress {
 			position: absolute;
@@ -29,12 +31,14 @@
 			z-index: 99;
 			transition: width 0.1s ease-in-out;
 		}
+
 		#quality {
 			position: absolute;
 			bottom: 10px;
 			z-index: 999;
 			right: 10px;
 		}
+
 		#canvas {
 			display: block;
 			position: absolute;
@@ -57,24 +61,26 @@
 			align-items: center;
 			z-index: 3;
 		}
+
 		#overlay2 {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			font-size: 20px;
+			transform: translate(-50%, -50%);
+			background-color: white;
+			padding: 20px;
 			background-color: rgba(0, 0, 0, 0.5);
 			z-index: 2;
 		}
+
 		#confirmation {
 			background-color: white;
 			color: #000;
 			padding: 20px;
 			text-align: center;
 		}
+
 		#okButton,
 		#cancelButton {
 			margin: 10px;
@@ -96,9 +102,15 @@
 			<input type="range" min="1" max="10" value="1" step="1" class="slider" id="mySlider">
 			<span id="sliderValue">1</span>
 		</p>
+
+
+		<p>Conversion to: <input type="checkbox" id="toggle" onchange="toggleConversion()">
+			<span id="conversionType">.splat file</span>
+		</p>
 	</div>
 	<div class="scene" id="spinner"></div>
 	<canvas id="canvas"></canvas>
 	<script src="main.min.js"></script>
 </body>
+
 </html>
