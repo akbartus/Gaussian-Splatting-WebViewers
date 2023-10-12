@@ -7,20 +7,20 @@ AFRAME.registerComponent("gaussian-splatting", {
     },
     initialPosition: { type: "string", default: "0 0 0" },
     downsampleFactor: { type: "int", default: 1 },
-    vertexCount: { type: "int", default: 600000 },
+    vertexCount: { type: "int", default: 1000000 },
+    splatSize: { type: "number", default: 1159.5880733038064 },
     splatPixelDiscard: { type: "float", default: 2.0 },
     slider: { type: "boolean", default: true },
-    splatSize: { type: "number", default: 1159.5880733038064 },
-    splatColored: { type: "boolean", default: true },
+    splatColor: { type: "string", default: "grayscale" },
   },
   init: function () {
     let scene = this.el.sceneEl.object3D;
     let renderer = this.el.sceneEl.renderer;
-    let camera = document.querySelector("a-entity[camera]").object3D; ////this.el.sceneEl.camera; 
+    let camera = document.querySelector("a-entity[camera]").object3D; ////this.el.sceneEl.camera;
     this.viewer;
-    let isColor = this.data.splatColored;
+    let selectedColor = this.data.splatColor;
     let colorSelection;
-   
+
     let splatU = this.data.splatUrl;
     let initialPosition = this.data.initialPosition;
     let downsampleF = this.data.downsampleFactor;
@@ -28,14 +28,13 @@ AFRAME.registerComponent("gaussian-splatting", {
     let vertexC;
     let particle;
 
-
     if (this.data.slider == false) {
       vertexC = this.data.vertexCount;
       particle = this.data.splatSize;
     } else {
       vertexC = this.data.vertexCount;
       particle = this.data.splatSize;
-      
+
       // Create the slider element for vertex count
       var slider = document.createElement("input");
       slider.type = "range";
@@ -90,7 +89,6 @@ AFRAME.registerComponent("gaussian-splatting", {
       document.body.appendChild(labelDiv2);
       document.body.appendChild(slider2);
 
-
       function updateVertexCount() {
         let sliderValue = document.getElementById("slider").value;
         vertexC = parseInt(sliderValue);
@@ -99,13 +97,12 @@ AFRAME.registerComponent("gaussian-splatting", {
 
       function updateParticleSize() {
         let sliderValue = document.getElementById("slider2").value;
-        particle = sliderValue+".0";
+        particle = sliderValue + ".0";
         this.viewer.cameraSpecs.fx = particle;
         this.viewer.cameraSpecs.fy = particle;
         console.log(this.viewer.cameraSpecs.fy);
-        this.viewer.updateSplatMeshUniforms(); 
+        this.viewer.updateSplatMeshUniforms();
       }
-
     }
     if (this.data.slider == true) {
       // Add event listener to the slider
@@ -115,7 +112,6 @@ AFRAME.registerComponent("gaussian-splatting", {
       document.getElementById("slider2").addEventListener("input", function () {
         updateParticleSize();
       });
-       
     }
 
     const values = initialPosition.split(" ");
@@ -125,17 +121,33 @@ AFRAME.registerComponent("gaussian-splatting", {
       z: parseFloat(values[2]),
     };
 
-
-    if (isColor) {
+    if (selectedColor == "color") {
       colorSelection = `            
       float B = exp(A) * vColor.a;
       gl_FragColor = vec4(B * vColor.rgb, B);
-      `
-    } else {
+      `;
+    } else if (selectedColor == "grayscale") {
       colorSelection = `
       float grayscale = dot(vColor.rgb, vec3(0.2989, 0.5870, 0.1140));
       float B = exp(A) * vColor.a;
-      gl_FragColor = vec4(B * vec3(grayscale), B);`
+      gl_FragColor = vec4(B * vec3(grayscale), B);
+      `;
+    } else if (selectedColor == "blackAndWhite") {
+      colorSelection = `
+      float grayscale = dot(vColor.rgb, vec3(0.2989, 0.5870, 0.1140));
+      float B = exp(A) * vColor.a;
+      vec3 blackAndWhite = vec3(0.0);
+      if (grayscale < 0.5) {
+        blackAndWhite = vec3(0.1);
+      } else if (grayscale < 1.0) {
+        blackAndWhite = vec3(1.0);
+      }
+      gl_FragColor = vec4(B * blackAndWhite, B);`;
+    } else if (selectedColor == "green") {
+      colorSelection = `
+      float grayscale = dot(vColor.rgb, vec3(0.2989, 0.5870, 0.1140));
+    float B = exp(A) * vColor.a;
+    gl_FragColor = vec4(B * vec3(0.0, grayscale, 0.0), B);`;
     }
     // renderer.anialias = false;
     // renderer.shadowMap.enabled = false;
@@ -715,8 +727,8 @@ AFRAME.registerComponent("gaussian-splatting", {
     }
 
     const DEFAULT_CAMERA_SPECS = {
-      fx:  particle, //1159.5880733038064,
-      fy:  particle, //1164.6601287484507,
+      fx: particle, //1159.5880733038064,
+      fy: particle, //1164.6601287484507,
       near: 0.1,
       far: 500,
     };
@@ -750,28 +762,51 @@ AFRAME.registerComponent("gaussian-splatting", {
         outDimensions.y = window.innerHeight;
       }
 
-
-
+      // updateRealProjectionMatrix(renderDimensions) {
+      //   this.realProjectionMatrix.elements = [
+      //     [-(2 * this.cameraSpecs.fx) / renderDimensions.x, 0, 0, 0],
+      //     [0, -(2 * this.cameraSpecs.fy) / renderDimensions.y, 0, 0],
+      //     [
+      //       0,
+      //       0,
+      //       -(this.cameraSpecs.far + this.cameraSpecs.near) /
+      //         (this.cameraSpecs.far - this.cameraSpecs.near),
+      //       -1,
+      //     ],
+      //     [
+      //       0,
+      //       0,
+      //       -(2.0 * this.cameraSpecs.far * this.cameraSpecs.near) /
+      //         (this.cameraSpecs.far - this.cameraSpecs.near),
+      //       0,
+      //     ],
+      //   ].flat();
+      // }
       updateRealProjectionMatrix(renderDimensions) {
+        const entity = document.querySelectorAll("a-entity")[0].object3D;
+        const entityRotation = entity.rotation;
+        const entityPosition = entity.position;
+    
+
+        const scaleX = -(2 * this.cameraSpecs.fx) / renderDimensions.x;
+        const scaleY = -(2 * this.cameraSpecs.fy) / renderDimensions.y;
+        const near = this.cameraSpecs.near;
+        const far = this.cameraSpecs.far;
+      
         this.realProjectionMatrix.elements = [
-          [(2 * this.cameraSpecs.fx) / renderDimensions.x, 0, 0, 0],
-          [0, (2 * this.cameraSpecs.fy) / renderDimensions.y, 0, 0],
-          [
-            0,
-            0,
-            -(this.cameraSpecs.far + this.cameraSpecs.near) /
-              (this.cameraSpecs.far - this.cameraSpecs.near),
-            -1,
-          ],
-          [
-            0,
-            0,
-            -(2.0 * this.cameraSpecs.far * this.cameraSpecs.near) /
-              (this.cameraSpecs.far - this.cameraSpecs.near),
-            0,
-          ],
-        ].flat();
+          scaleX, 0, 0, 0,
+          0, scaleY, 0, 0,
+          0, 0, -(far + near) / (far - near), -1,
+          0, 0, -(2 * far * near) / (far - near), 0
+        ];
+      
+        // Apply the entity's rotation, position, and scale
+        const rotationMatrix = new THREE.Matrix4().makeRotationFromEuler(entityRotation);
+        this.realProjectionMatrix.multiply(rotationMatrix);
+        this.realProjectionMatrix.setPosition(entityPosition);
+        
       }
+      
 
       onResize = (function () {
         const renderDimensions = new THREE.Vector2();
@@ -796,8 +831,6 @@ AFRAME.registerComponent("gaussian-splatting", {
         this.updateRealProjectionMatrix(renderDimensions);
 
         renderer.setSize(renderDimensions.x, renderDimensions.y);
-
-
 
         window.addEventListener("resize", this.resizeFunc, false);
 
@@ -1000,7 +1033,7 @@ AFRAME.registerComponent("gaussian-splatting", {
                                                position.x * v1 / viewport * 2.0 +
                                                position.y * v2 / viewport * 2.0;
         
-                    gl_Position = vec4(-projectedCovariance, 0.0, 1.0);
+                    gl_Position = vec4(projectedCovariance, 0.0, 1.0);
                 }`;
         const fragmentShaderSource = `
                     #include <common>
@@ -1025,7 +1058,7 @@ AFRAME.registerComponent("gaussian-splatting", {
             type: "v2",
             value: new THREE.Vector2(),
           },
-         
+
           viewport: {
             type: "v2",
             value: new THREE.Vector2(),
@@ -1088,6 +1121,44 @@ AFRAME.registerComponent("gaussian-splatting", {
         return geometry;
       }
 
+      /*
+      //Quads:
+      buildGeometry(splatBuffer) {
+  const baseGeometry = new THREE.BufferGeometry();
+
+  const positionsArray = new Float32Array(24); // 4 vertices per quad
+  const positions = new THREE.BufferAttribute(positionsArray, 3);
+  baseGeometry.setAttribute("position", positions);
+  positions.setXYZ(0, -1.0, -1.0, 0.0);
+  positions.setXYZ(1, -1.0, 1.0, 0.0);
+  positions.setXYZ(2, 1.0, -1.0, 0.0);
+  positions.setXYZ(3, 1.0, 1.0, 0.0);
+  positions.needsUpdate = true;
+
+  const geometry = new THREE.InstancedBufferGeometry().copy(baseGeometry);
+
+  const splatColorsArray = new Float32Array(splatBuffer.getVertexCount() * 4);
+  const splatColors = new THREE.InstancedBufferAttribute(
+    splatColorsArray,
+    4,
+    false
+  );
+  splatColors.setUsage(THREE.DynamicDrawUsage);
+  geometry.setAttribute("splatColor", splatColors);
+
+  const splatCentersArray = new Float32Array(splatBuffer.getVertexCount() * 9);
+  const splatCenters = new THREE.InstancedBufferAttribute(
+    splatCentersArray,
+    9,
+    false
+  );
+  splatCenters.setUsage(THREE.DynamicDrawUsage);
+  geometry.setAttribute("splatCenterCovariance", splatCenters);
+
+  return geometry;
+}
+      */
+
       buildMesh(splatBuffer) {
         const geometry = this.buildGeometry(splatBuffer);
         const material = this.buildMaterial();
@@ -1098,7 +1169,7 @@ AFRAME.registerComponent("gaussian-splatting", {
 
     function init() {
       function load() {
-        viewer = new Viewer([0, 0, 0], [val.x, val.y, val.z], [0, 0, 0]);
+        viewer = new Viewer([0, -1, 0], [val.x, val.y, val.z], [0, 0, 0]);
         viewer.init();
         viewer.loadFile(splatU);
       }
