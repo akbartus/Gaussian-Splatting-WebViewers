@@ -44,6 +44,7 @@ Open <a href="https://splat-converter.glitch.me/">this link</a>, select compress
 * <del>The possibility of changing the size of a splat file in splat converter.</del>
 * Making web viewer 1 work faster.
 * Adding new features for A-Frame component.
+* Adding converter for the second web viewer.
 
 ### **Tech Stack**
 The project is powered by AFrame and Three.js. Truck.splat file was taken from  Mark Kellog's repository.  
