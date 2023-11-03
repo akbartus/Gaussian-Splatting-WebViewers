@@ -39,7 +39,7 @@ A-Frame component has the following schemas, which could be changed:
 * <b>splatSize: { type: "number", default: 1159.5880733038064 }</b> - the value represents camera Fx and Fy and used as max value in a slider. 
 * <b>splatPixelDiscard: { type: "float", default: 2.0 }</b> - value for discarding pixels. 
 * <b>slider: { type: "boolean", default: true }</b> - enable or disable sliders (vertexCount and splatSize).
-* <b>splatColor: { type: "string", default: "grayscale" }</b> - splat color scheme/paletter. Can be "color", "blackAndWhite", "grayscale", "green".
+* <b>splatColor: { type: "string", default: "grayscale" }</b> - splat color scheme/palette. Can be "color", "blackAndWhite", "grayscale", "green".
 
 ### **Converting .ply to .splat and compression**
 In order to convert .ply file, which is created after following 3D Gaussian Splatting for Real-Time Radiance Field Rendering tutorial, you can use the following tool, which is simplified and reduced version of  Kevin Kwok's <a href="https://github.com/antimatter15/splat">WebGL implementation of Gaussian Splatting</a> (MIT License, Copyright (c) 2023 Kevin Kwok).
